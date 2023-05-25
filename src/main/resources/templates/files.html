@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTPT</title>
+</head>
+<body>
+    <div>
+        <ul>
+            <li th:each="file : ${files}" th:text="${file}"></li>
+        </ul>
+    </div>
+</body>
+</html>
