@@ -1,5 +1,7 @@
 package com.technosudo.httptransferer.controller
 
+import com.technosudo.httptransferer.Config
+import com.technosudo.httptransferer.Settings
 import com.technosudo.httptransferer.service.FileService
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -35,7 +37,7 @@ class VideoController @Autowired constructor(
             request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
         )
 
-        val file = File(fileService.pathMerger("/home/Johanes/Torrents", path))
+        val file = File(fileService.pathMerger(Config.APP_ROOT_DIRECTORY, Settings.START_DIRECTORY, path))
         val length = file.length()
         val rangeHeader = request.getHeader("Range")
 

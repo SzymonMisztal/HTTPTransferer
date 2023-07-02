@@ -5,5 +5,7 @@ enum class FileType {
     FILE,
     PNG,
     JPG,
-    JPEG
+    JPEG,
+    MOV,
+    MP4
 }

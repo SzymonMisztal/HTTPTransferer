@@ -1,5 +1,7 @@
 package com.technosudo.httptransferer.controller
 
+import com.technosudo.httptransferer.Config
+import com.technosudo.httptransferer.Settings
 import com.technosudo.httptransferer.service.FileService
 import jakarta.servlet.http.HttpServletRequest
 import org.apache.commons.io.IOUtils
@@ -34,7 +36,7 @@ class PreviewController @Autowired constructor(
             request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
         )
 
-        val imagePath = fileService.pathMerger("/home/Johanes/Pictures", path)
+        val imagePath = fileService.pathMerger(fileService.pathMerger(Config.APP_ROOT_DIRECTORY, Settings.START_DIRECTORY), path)
         val imageFile = File(imagePath)
         if (!imageFile.exists() || !imageFile.isFile()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -60,11 +62,13 @@ class PreviewController @Autowired constructor(
             request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
         )
 
-        val fileContents = File(fileService.pathMerger("/home/Johanes/Pictures", path)).readBytes()
+        val fileContents = File(fileService.pathMerger(fileService.pathMerger(Config.APP_ROOT_DIRECTORY, Settings.START_DIRECTORY), path)).readLines()
+        val first1000Lines = fileContents.take(1000).joinToString(separator = "\n").toByteArray()
+
         val headers = HttpHeaders()
         headers.contentType= MediaType.TEXT_PLAIN
 
-        return ResponseEntity(fileContents, headers, HttpStatus.OK)
+        return ResponseEntity(first1000Lines, headers, HttpStatus.OK)
     }
 
     @GetMapping("/video/**")

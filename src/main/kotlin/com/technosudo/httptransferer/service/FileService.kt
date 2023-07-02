@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service
 import java.io.File
 
 @Service
-class FileService @Autowired constructor(
-    val accountService: AccountService
-) {
+class FileService @Autowired constructor() {
 
     fun getFiles(generalPath: String, specificPath: String): List<FileData> {
 
@@ -39,6 +37,8 @@ class FileService @Autowired constructor(
                         if (file.name.endsWith(".png")) FileType.PNG
                         else if (file.name.endsWith(".jpg")) FileType.JPG
                         else if (file.name.endsWith(".jpeg")) FileType.JPEG
+                        else if (file.name.endsWith(".mov")) FileType.MOV
+                        else if (file.name.endsWith(".mp4")) FileType.MP4
                         else FileType.FILE
                     ))
                 }
